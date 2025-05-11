@@ -1,0 +1,9 @@
+port: 8080
+backends:
+  - "http://backend1:9001"  
+  - "http://backend2:9002"
+rate_limit:
+  capacity: 100
+  refill_rate: 10
+databasePath: "clients.db"
+strategy: round_robin  # можно заменить на least_connections , round_robin, потому что у нас есть фабрика стратегий.
