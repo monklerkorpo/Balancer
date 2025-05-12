@@ -124,7 +124,7 @@ strategy: round_robin  # можно заменить на least_connections , ro
 🔹Гибкость настроек:
 Индивидуальные лимиты задаются через SetClientLimit(clientID, ClientLimit{...})
 Возможна интеграция с внешними хранилищами (БД, Redis) для динамической загрузки правил
-Особенность реализации - минимальные блокировки за счет sync.Map для хранения состояний клиентов.
+
 
 
 
@@ -147,7 +147,7 @@ strategy: round_robin  # можно заменить на least_connections , ro
 **Файл с тестами:** `test/integration/ratelimiter/ratelimiter_test.go`
 
 ```bash
-go test -bench=. -tags=integration -benchmem ./integration
+go test -bench=. -tags=integration -benchmem ./test/integration/ratelimiter
 ```
 
 Покрывает:
