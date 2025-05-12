@@ -57,6 +57,16 @@ rate_limit:
 databasePath: "clients.db"
 strategy: round_robin  # можно заменить на least_connections , round_robin, random, потому что у нас есть фабрика стратегий.
 ```
+##  Быстрый старт через Docker
+
+```bash
+docker-compose up --build
+```
+
+Порты:
+
+- `:8080` — основной Load Balancer
+- `:9001`, `:9002` — мок-сервера
 
 ##  HTTP API
 
@@ -168,16 +178,7 @@ go test -bench=. -tags=integration -benchmem -race ./test/integration/ratelimite
 - `test/mock/server1` — отвечает на все запросы с `Hello from mock server 1`
 - `test/mock/server2` — аналогично, но с `mock server 2`
 
-##  Быстрый старт через Docker
 
-```bash
-docker-compose up --build
-```
-
-Порты:
-
-- `:8080` — основной Load Balancer
-- `:9001`, `:9002` — мок-сервера
 
 ## Интеграционный тест CRUD в различных сценариях (подробный)
 ```
