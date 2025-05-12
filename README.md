@@ -17,7 +17,7 @@
 
 ##  Возможности
 
-- ✅ **Round-Robin, least connections балансировка** между backend-серверами
+- ✅ **Round-Robin, least connections, random балансировка** между backend-серверами
 - ✅ **Token Bucket Rate Limiter** (глобальный и индивидуальный per-client)
 - ✅ **Health Check backend-ов** (исключение из пула при падении)
 - ✅ **CRUD API** для управления лимитами клиентов (`/clients`)
@@ -55,7 +55,7 @@ rate_limit:
   capacity: 100
   refill_rate: 10
 databasePath: "clients.db"
-strategy: round_robin  # можно заменить на least_connections , round_robin, потому что у нас есть фабрика стратегий.
+strategy: round_robin  # можно заменить на least_connections , round_robin, random, потому что у нас есть фабрика стратегий.
 ```
 
 ##  HTTP API
@@ -144,10 +144,14 @@ strategy: round_robin  # можно заменить на least_connections , ro
 
 ##  Интеграционные тесты
 
-**Файл с тестами:** `test/integration/ratelimiter/ratelimiter_test.go`
+## Benchmark
+
+Интеграционные бенчмарки для Rate Limiter запускались с флагами `-race` и `-benchmem`, чтобы оценить как производительность, так и потокобезопасность реализации.
+
+Команда для запуска:
 
 ```bash
-go test -bench=. -tags=integration -benchmem ./test/integration/ratelimiter
+go test -bench=. -tags=integration -benchmem -race ./test/integration/ratelimiter
 ```
 
 Покрывает:
@@ -175,7 +179,7 @@ docker-compose up --build
 - `:8080` — основной Load Balancer
 - `:9001`, `:9002` — мок-сервера
 
-## Интеграционный тест CRUD в различных сценариях 
+## Интеграционный тест CRUD в различных сценариях (подробный)
 ```
 go test -v -count=1 ./test/integration/api
 ```
